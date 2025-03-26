@@ -1,7 +1,5 @@
 package com.maxvone.userservice.domain.dto;
 
-import java.util.UUID;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,8 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UserDto {
-    private UUID id;
+public class AuthDto {
     private String username;
     private String email;
 }

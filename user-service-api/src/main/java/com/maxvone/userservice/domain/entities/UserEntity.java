@@ -34,7 +34,7 @@ public class UserEntity {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "passwordHash", nullable = false, unique = true)
+    @Column(name = "password_hash", nullable = false)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String passwordHash;
 }
