@@ -3,26 +3,26 @@ package com.maxvone.userservice.mappers.impl;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
-import com.maxvone.userservice.domain.dto.AuthDto;
+import com.maxvone.userservice.domain.dto.UserDto;
 import com.maxvone.userservice.domain.entities.UserEntity;
 import com.maxvone.userservice.mappers.Mapper;
 
 @Component
-public class AuthMapper implements Mapper<UserEntity, AuthDto> {
+public class UserMapper implements Mapper<UserEntity, UserDto> {
 
     private ModelMapper modelMapper;
 
-    public AuthMapper(ModelMapper modelMapper) {
+    public UserMapper(ModelMapper modelMapper) {
         this.modelMapper = modelMapper;
     }
 
     @Override
-    public AuthDto mapTo(UserEntity userEntity) {
-        return modelMapper.map(userEntity, AuthDto.class);
+    public UserDto mapTo(UserEntity userEntity) {
+        return modelMapper.map(userEntity, UserDto.class);
     }
 
     @Override
-    public UserEntity mapFrom(AuthDto dto) {
+    public UserEntity mapFrom(UserDto dto) {
         return modelMapper.map(dto, UserEntity.class);
     }
 }
