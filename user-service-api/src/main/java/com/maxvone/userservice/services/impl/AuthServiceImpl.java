@@ -1,5 +1,6 @@
 package com.maxvone.userservice.services.impl;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.maxvone.userservice.domain.dto.UserDto;
@@ -14,10 +15,12 @@ public class AuthServiceImpl implements AuthService {
 
     private final UserRepository userRepository;
     private Mapper<UserEntity, UserDto> authMapper;
+    private PasswordEncoder passwordEncoder;
 
-    public AuthServiceImpl(UserRepository userRepository, Mapper<UserEntity, UserDto> authMapper) {
+    public AuthServiceImpl(UserRepository userRepository, Mapper<UserEntity, UserDto> authMapper, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.authMapper = authMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -32,7 +35,7 @@ public class AuthServiceImpl implements AuthService {
         UserEntity userEntity = UserEntity.builder()
                 .username(registerUserDto.getUsername())
                 .email(registerUserDto.getEmail())
-                .passwordHash(registerUserDto.getRawPassword()) //TODO: Hash password
+                .passwordHash(passwordEncoder.encode(registerUserDto.getRawPassword()))
                 .build();
 
         return userEntity;
