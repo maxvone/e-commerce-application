@@ -3,8 +3,8 @@ package com.maxvone.productservice;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class ProductserviceApplicationTests {
+@SpringBootTest(classes = ProductServiceApplication.class)
+class ProductServiceApplicationTests {
 
 	@Test
 	void contextLoads() {
