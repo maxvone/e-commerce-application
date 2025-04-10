@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,8 +23,9 @@ public class ProductController {
     private ProductService productService;
     private Mapper<ProductEntity, ProductDto> productMapper;
     
-    public ProductController(ProductService productService) {
+    public ProductController(ProductService productService, Mapper<ProductEntity, ProductDto> productMapper) {
         this.productService = productService;
+        this.productMapper = productMapper;
     }
 
     @PostMapping
@@ -33,7 +35,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductDto> getProductById(Long id) {
+    public ResponseEntity<ProductDto> getProductById(@PathVariable("id") Long id) {
         Optional<ProductEntity> foundProduct = productService.findById(id);
         
         return foundProduct.map(product -> {
