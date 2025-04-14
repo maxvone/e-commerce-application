@@ -10,12 +10,10 @@
 	</parent>
 	
 	<groupId>com.maxvone</groupId>
-	<artifactId>ecommerce</artifactId>
+	<artifactId>user-service-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>user-service-api</name>
 	<description>User Service for E-commerce Application</description>
-	
-	<!-- Removed empty tags -->
 	
 	<dependencies>
 		<dependency>
