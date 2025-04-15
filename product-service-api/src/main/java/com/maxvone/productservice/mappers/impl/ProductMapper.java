@@ -9,7 +9,7 @@ import com.maxvone.productservice.domain.dto.ProductDto;
 @Component
 public class ProductMapper implements Mapper<ProductEntity, ProductDto> {
 
-    private final ModelMapper modelMapper;
+    private ModelMapper modelMapper;
 
     public ProductMapper(ModelMapper modelMapper) {
         this.modelMapper = modelMapper;
