@@ -9,6 +9,8 @@ services:
       POSTGRES_PASSWORD: changemeinprod!
       POSTGRES_USER: postgres
       POSTGRES_DB: userdb
+    volumes:
+      - user-db-volume:/var/lib/postgresql/data
 
   user-service:
     build: ./user-service-api
@@ -20,7 +22,7 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://user-db:5432/userdb
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=changemeinprod!
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=create-drop
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
 
   # === Product Service ===
   product-db:
@@ -45,3 +47,6 @@ services:
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=changemeinprod!
       - SPRING_JPA_HIBERNATE_DDL_AUTO=create-drop
+
+volumes:
+  user-db-volume:
