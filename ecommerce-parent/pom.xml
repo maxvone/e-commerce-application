@@ -13,7 +13,6 @@
   <modules>
 	<module>../user-service-api</module>
 	<module>../product-service-api</module>
-	<module>../eurekaserver</module>
   </modules>
   <dependencyManagement>
 	<dependencies>
