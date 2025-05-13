@@ -2,7 +2,7 @@ services:
   # === Discovery Service ===
   discovery-server:
     build:
-      context: ../discovery-server
+      context: ./discovery-server
     container_name: discovery-server
     ports:
       - "8761:8761"
