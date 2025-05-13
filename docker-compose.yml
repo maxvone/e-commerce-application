@@ -1,4 +1,12 @@
 services:
+  # === Discovery Service ===
+  discovery-server:
+    build:
+      context: ../discovery-server
+    container_name: discovery-server
+    ports:
+      - "8761:8761"
+
   # === User Service ===
   user-db:
     image: postgres:latest
@@ -15,9 +23,10 @@ services:
   user-service:
     build: ./user-service-api
     ports:
-      - "8080:8080"
+      - "8081:8081"
     depends_on:
       - user-db
+      - discovery-server
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://user-db:5432/userdb
       - SPRING_DATASOURCE_USERNAME=postgres
@@ -41,9 +50,10 @@ services:
   product-service:
     build: ./product-service-api
     ports:
-      - "8081:8081"
+      - "8082:8082"
     depends_on:
       - product-db
+      - discovery-server
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://product-db:5432/productdb
       - SPRING_DATASOURCE_USERNAME=postgres
