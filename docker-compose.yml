@@ -1,4 +1,22 @@
 services:
+  # === Discovery Service ===
+  discovery-server:
+    build: ./eurekaserver
+    ports:
+      - "8761:8761"
+
+  # === Gateway Service ===
+  api-gateway:
+    build: ./apigateway
+    ports:
+      - "8080:8888"
+    depends_on:
+      - user-service
+      - product-service
+      - discovery-server
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://discovery-server:8761/eureka/"
+
   # === User Service ===
   user-db:
     image: postgres:latest
@@ -15,7 +33,7 @@ services:
   user-service:
     build: ./user-service-api
     ports:
-      - "8080:8080"
+      - "8082:8082"
     depends_on:
       - user-db
     environment:
@@ -23,6 +41,7 @@ services:
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=changemeinprod!
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery-server:8761/eureka/
 
   # === Product Service ===
   product-db:
@@ -49,6 +68,7 @@ services:
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=changemeinprod!
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery-server:8761/eureka/
 
 volumes:
   user-db-volume:
