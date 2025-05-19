@@ -4,29 +4,27 @@ server:
 spring:
   application:
     name: api-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: false  # you are using manual routes, not dynamic discovery
+      routes:
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/user-service/**
+          filters:
+            - RewritePath=/user-service/(?<segment>.*), /${segment}
+
+        - id: product-service
+          uri: lb://product-service
+          predicates:
+            - Path=/product-service/**
+          filters:
+            - RewritePath=/product-service/(?<segment>.*), /${segment}
 
 eureka:
   client:
     service-url:
       defaultZone: http://discovery-server:8761/eureka
-
-cloud:
-  gateway:
-    discovery:
-      locator:
-        enabled: true
-        lower-case-service-id: true
-    routes:
-      - id: user-service
-        uri: lb://user-service
-        predicates:
-          - Path=/user-service/**
-        filters:
-          - RewritePath=/user-service/(?<segment>.*), /$\{segment}
-
-      - id: product-service
-        uri: lb://product-service
-        predicates:
-          - Path=/product-service/**
-        filters:
-          - RewritePath=/product-service/(?<segment>.*), /$\{segment}

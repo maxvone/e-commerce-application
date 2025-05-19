@@ -76,6 +76,18 @@ services:
     networks:
       - ecommerce-net
 
+  api-gateway:
+    build:
+      context: ./api-gateway
+    depends_on:
+      - discovery-server
+      - user-service
+      - product-service
+    ports:
+      - "8080:8080"
+    networks:
+      - ecommerce-net
+
 
 volumes:
   user-db-volume:
