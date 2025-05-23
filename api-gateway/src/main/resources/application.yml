@@ -23,6 +23,15 @@ spring:
             - Path=/product-service/**
           filters:
             - RewritePath=/product-service/(?<segment>.*), /${segment}
+            - name: CircuitBreaker
+              args:
+                name: productCircuitBreaker
+                fallbackUri: forward:/fallback/product
+            - name: Retry
+              args:
+                retries: 3
+                statuses: BAD_GATEWAY, SERVICE_UNAVAILABLE
+                methods: GET
 
 eureka:
   client:
